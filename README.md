@@ -115,7 +115,7 @@ com.egg.biblioteca
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/electricity-store.git
+git clone https://github.com/MarioAndresR/electricity-store.git
 ```
 
 2. Configure MySQL database (schema name `electricity_store`)
@@ -139,8 +139,8 @@ Java Backend Developer | Passionate about clean code, security, and real-world s
 
 ## 🔗 Connect with Me
 
-* [LinkedIn](https://www.linkedin.com/in/your-profile)
-* [GitHub](https://github.com/your-username)
+* [LinkedIn](https://www.linkedin.com/in/marandresro)
+* [GitHub](https://github.com/MarioAndresR)
 
 ---
 
