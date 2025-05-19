@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- Head fragment -->
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header fragment -->
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg rounded-4">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4 fw-bold text-warning">Update your account</h3>
+                        <!-- There are two ways to update a profile, from its own account USER/ADMIN 
+                            or when an ADMIN updates any user. The model attribute actionUrl indicates
+                            the URL of the POST method -->
+                        <form th:action="@{${actionUrl}}" method="POST" enctype="multipart/form-data">
+
+                            <!-- Hide the id, to send its value to the POST method but not showing it in the UI -->
+                            <input hidden th:value="${user.appUserId}" name="id">
+
+                            <!-- Name, lastname and email preview -->
+                            <div class="form-group mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Enter your first name" th:value="${user.name}">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastame" name="lastName"
+                                    placeholder="Enter your last name" th:value="${user.lastName}">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="yourname@example.com" th:value="${user.email}">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Enter your password">
+                                <div class="form-text">
+                                    Password must be at least 8 characters and include upper/lower case letters, a number, and a special character.
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Confirm password</label>
+                                <input type="password" class="form-control" id="password2" name="password2"
+                                    placeholder="Confirm your password">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Profile photo</label>
+                                <input type="file" class="form-control" id="photo" name="imageFile"
+                                    accept=".jpg,.jpeg,.png">
+                                <div class="form-text">Max file size: 5MB. Supported formats: JPG, PNG</div>
+                            </div>
+
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-warning">Update Account</button>
+                            </div>
+
+                        </form>
+
+                        <div class="form-footer">
+                            <!-- When the authenticated user role is USER or ADMIN goes back to /home, 
+                                and if it's ADMIN and it is modifying a user, goes back to /admin/users -->
+                            <div class="text-center mt-4">
+                                <a sec:authorize="hasRole('ADMIN')" th:if="${actionUrl.contains('/admin/user-update/')}"
+                                    th:href="@{/admin/users}" class="btn btn-outline-warning mt-2">← Back to Users
+                                </a>
+                                <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/dashboard}" 
+                                    class="btn btn-outline-warning mt-2">← Back to Home
+                                </a>
+                                <a sec:authorize="hasAnyRole('USER')" th:href="@{/home}"
+                                    class="btn btn-outline-warning mt-2">← Back to Home
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer fragment -->
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+
+</html>

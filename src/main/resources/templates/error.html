@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Head fragment -->
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body>
+    <!-- Header fragment -->
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <body class="d-flex flex-column min-vh-100">
+        <div class="container text-center mt-5">
+            <h1 th:text="'Error ' + ${errorCode}"></h1>
+            <p th:text="${httpErrorMessage}"></p>
+            <a href="/home" class="btn btn-warning">← Back to Home</a>
+        </div>
+    </body>
+
+    <!-- Footer fragment -->
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+
+</html>

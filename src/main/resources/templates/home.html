@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- Head fragment -->
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header fragment -->
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <main class="container my-5">
+        <div class="row mb-4">
+            <div class="col-md-12 text-center">
+                <a th:href="@{/}" class="d-inline-block mb-4">
+                    <img class="logo img-fluid" style="max-height: 100px;" src="/img/electricity-logo.png"
+                        alt="Img logo egg">
+                </a>
+                <div class="welcome p-4 bg-body rounded shadow-lg">
+                    <h1 class="display-4">Welcome to your reliable Electricity Store</h1>
+                    <h2>Dear customer, <span sec:authentication="principal.name"></span>! </h2>
+
+                    <!-- Profile Image -->
+                    <div class="d-flex justify-content-center align-items-center my-3">
+                        <img th:src="@{'/image/profile/' + ${#authentication.principal.appUserId}}" alt="Profile image" class="rounded-circle shadow"
+                            style="width: 150px; height: 150px; object-fit: cover;">
+                    </div>
+
+                    <p>Access to our catalog and providers.</p>
+
+                    <div class="nav-buttons">
+                        <a th:href="@{/item/list}" class="btn btn-warning btn-lg me-2">Catalog</a>
+                        <a th:href="@{/factory/list}" class="btn btn-outline-warning btn-lg me-2">Providers</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer fragment -->
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+
+</html>

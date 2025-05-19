@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Head fragment -->
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header fragment -->
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-lg rounded-4">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4 fw-bold text-warning">Item Management</h3>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="table-warning">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Number</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Factory</th>
+                                        <th sec:authorize="hasRole('ADMIN')">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${items}">
+                                        <td th:text="${item.itemId}"></td>
+                                        <td th:text="${item.itemNumber}"></td>
+                                        <td th:text="${item.itemName}"></td>
+                                        <td th:text="${item.itemDescription}"></td>
+                                        <td th:text="${item.factory.factoryName}"></td>
+                                        <td sec:authorize="hasRole('ADMIN')">
+                                            <a th:href="@{'/item/update/' + ${item.itemId}}"
+                                                class="btn btn-outline-primary btn-sm me-2">
+                                                <i class="bi bi-pencil-square"></i> Modify
+                                            </a>
+                                            <form th:action="@{'/item/delete/' + ${item.itemId}}" method="POST"
+                                                style="display:inline;">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                    onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a th:href="@{/home}" class="btn btn-outline-warning mt-2">← Back to Home</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer fragment -->
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+
+</html>

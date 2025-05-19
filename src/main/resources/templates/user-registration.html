@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Head fragment -->
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header fragment -->
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg rounded-4">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4 fw-bold text-warning">Create your user account</h3>
+                        <!-- <a th:href="@{/login}" class="btn btn-outline-warning btn-lg">Log in here if you already have an account</a> -->
+
+                        <form th:action="@{/registration}" method="POST" enctype="multipart/form-data">
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control form-control" id="name" name="name"
+                                    placeholder="Enter your first name" th:value="${name}" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastame" name="lastName"
+                                    placeholder="Enter your last name" th:value="${lastName}" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="yourname@example.com" th:value="${email}" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Profile photo</label>
+                                <input type="file" class="form-control" id="photo" name="imageFile"
+                                    accept=".jpg,.jpeg,.png">
+                                <div class="form-text">Max file size: 5MB. Supported formats: JPG, PNG</div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                    placeholder="Enter your password" required>
+                                <div class="form-text">
+                                    Password must be at least 8 characters and include upper/lower case letters, a number, and a special character.
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">Confirm password</label>
+                                <input type="password" class="form-control" id="password2" name="password2" 
+                                placeholder="Confirm your password" required>
+                            </div>
+
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-warning">Create Account</button>
+                            </div>
+
+                        </form>
+
+                        <div class="form-footer">
+                            <div class="text-center mt-4">
+                                <p>Already have an account? <a th:href="@{/login}" class="text-warning">Sign in here</a>
+                                </p>
+                                <a th:href="@{/}" class="btn btn-outline-warning mt-2">← Back to Home</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer fragment -->
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+
+</html>

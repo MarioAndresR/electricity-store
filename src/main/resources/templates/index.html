@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Head fragment -->
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header fragment -->
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <main class="container my-5">
+        <div class="row mb-4">
+            <div class="col-md-12 text-center">
+                <a th:href="@{/}" class="d-inline-block mb-4">
+                    <img class="logo img-fluid" style="max-height: 100px;" src="/img/electricity-logo.png"
+                        alt="Img logo egg">
+                </a>
+                <div class="welcome p-4 bg-body rounded shadow">
+                    <h1 class="display-4">Welcome to the Electricity Store</h1>
+                    <p class="lead">Your reliable store for electrical items</p>
+
+                    <!-- Show these buttons only for non-authenticated users -->
+                    <div class="buttons mt-4" sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}" class="btn btn-warning btn-lg me-2">Sign Up</a>
+                        <a th:href="@{/login}" class="btn btn-outline-warning btn-lg">Log In</a>
+                    </div>
+
+                    <!-- Show these buttons for authenticated users -->
+                    <div class="buttons mt-4" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/item/list}" class="btn btn-primary btn-lg me-2">Browse Catalog</a>
+                        <a th:href="@{/item/register}" class="btn btn-success btn-lg"
+                            sec:authorize="hasRole('ADMIN')">Add New Item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-lightning-charge-fill text-warning display-4 mb-3"></i>
+                        <h3 class="card-title">Electrical Supplies</h3>
+                        <p class="card-text">Check our catalog of high-quality electrical components from trusted
+                            manufacturers.</p>
+                        <a th:href="@{/item/list}" class="btn btn-outline-dark">View Catalog</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-buildings text-dark display-4 mb-3"></i>
+                        <h3 class="card-title">Quality Manufacturers</h3>
+                        <p class="card-text">We partner with the best factories to ensure you get reliable and durable
+                            products.</p>
+                        <a th:href="@{/factory/list}" class="btn btn-outline-dark">Our Suppliers</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-headset text-info display-4 mb-3"></i>
+                        <h3 class="card-title">Expert Support</h3>
+                        <p class="card-text">Our team is ready to help you find the electrical components for your
+                            project.</p>
+                        <a href="/contact" class="btn btn-outline-dark">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer fragment -->
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+
+</html>
