@@ -130,9 +130,9 @@ mvn spring-boot:run
 
 ---
 
-## 💼 Author
+## 💼 About me
 
-**\Mario Andres Rodriguez**
+**Mario Andres Rodriguez**
 Java Backend Developer | Passionate about clean code, security, and real-world solutions
 
 ---
