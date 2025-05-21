@@ -139,7 +139,6 @@ mvn spring-boot:run
 ```mermaid
 erDiagram
     AppUser ||--|| Image : has
-    AppUser ||--o{ Item : owns
     Item }o--|| Factory : manufactured_by
 
     AppUser {
