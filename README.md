@@ -169,6 +169,7 @@ erDiagram
         Long factoryId
         String factoryName
     }
+```
 
 ---
 
