@@ -1,4 +1,4 @@
-package com.egg.electricity_store.configuration;
+package com.egg.electricity_store.initializers;
 
 import java.io.IOException;
 

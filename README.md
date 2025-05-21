@@ -58,6 +58,7 @@ com.egg.biblioteca
 ├── services        # Business logic and validations
 ├── configuration   # Spring Security Configuration
 ├── exceptions      # Custom exceptions
+├── initializers    # Startup logic (AdminUserInitializer, DefaultImageInitializer)
 ```
 
 ### Separation of Concerns
@@ -66,6 +67,7 @@ com.egg.biblioteca
 * Services manage logic, validation, and database interaction
 * Repositories abstract database access
 * Entity classes use Lombok annotations to reduce boilerplate
+* Initializers run on startup to ensure default admin user and fallback image
 
 ---
 
@@ -77,6 +79,8 @@ com.egg.biblioteca
 * Thymeleaf `fragments` for modular views (header, footer, head)
 * Consistent UI layout across all views
 * Form error messages injected via `RedirectAttributes`
+* AdminUserInitializer: ensures an admin user exists on startup
+* DefaultImageInitializer: sets a default profile image if not present
 
 ---
 
@@ -127,6 +131,43 @@ mvn spring-boot:run
 ```
 
 5. Visit `http://localhost:8080` in your browser
+
+---
+
+## 📊 Entity Relationship Diagram
+
+erDiagram
+    AppUser ||--|| Image : has
+    AppUser ||--o{ Item : owns
+    Item }o--|| Factory : manufactured_by
+
+    AppUser {
+        Long appUserId
+        String name
+        String lastName
+        String email
+        String password
+        Role role
+    }
+
+    Image {
+        Long imageId
+        String imageName
+        String imageMime
+        byte[] imageContent
+    }
+
+    Item {
+        Long itemId
+        Integer itemNumber
+        String itemName
+        String itemDescription
+    }
+
+    Factory {
+        Long factoryId
+        String factoryName
+    }
 
 ---
 
