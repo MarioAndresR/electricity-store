@@ -136,6 +136,7 @@ mvn spring-boot:run
 
 ## 📊 Entity Relationship Diagram
 
+```mermaid
 erDiagram
     AppUser ||--|| Image : has
     AppUser ||--o{ Item : owns
