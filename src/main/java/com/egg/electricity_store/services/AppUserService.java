@@ -142,8 +142,13 @@ public class AppUserService implements UserDetailsService {
         // Null parameters means the user did not provide a new value. it’s allowed.
         validateUpdateParams(email, name, lastName, password, password2);
 
-        AppUser appUser = appUserRepository.findById(appUserId)
-                .orElseThrow(() -> new MyException("App User not found with ID: " + appUserId));
+        /* 
+         * findById method from the Repo was used, but there was a problem with 
+         * the lazy-loaded image, that propagated to updateProfile method in
+         * Portal Controler (when comparing current vs updated user). It was
+         * solved with getById method which loads the image forcely.
+        */
+        AppUser appUser = getById(appUserId);
 
         // Update only the non-null fields (allow partial updates).
         if (!email.isBlank() && !email.equals(appUser.getEmail()) )
