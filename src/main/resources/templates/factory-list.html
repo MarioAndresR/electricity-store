@@ -16,7 +16,7 @@
                         <h3 class="text-center mb-4 fw-bold text-warning">Factory Management</h3>
 
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle text-center">
+                            <table class="table table-striped table-hover align-middle text-center">
                                 <thead class="table-warning">
                                     <tr>
                                         <th>ID</th>
@@ -27,13 +27,13 @@
                                 <tbody>
                                     <tr th:each="factory : ${factories}">
                                         <td th:text="${factory.factoryId}"></td>
-                                        <td th:text="${factory.factoryName}"></td>
-                                        <td sec:authorize="hasRole('ADMIN')">
-                                            <a th:href="@{'/factory/update/' + ${factory.factoryId}}" class="btn btn-outline-primary btn-sm me-2">
+                                        <td class="text-start" th:text="${factory.factoryName}"></td>
+                                        <td class="text-nowrap" sec:authorize="hasRole('ADMIN')">
+                                            <a th:href="@{'/factory/update/' + ${factory.factoryId}}" class="btn btn-sm btn-outline-primary me-2">
                                                 <i class="bi bi-pencil-square"></i> Modify
                                             </a>
                                             <form th:action="@{'/factory/delete/' + ${factory.factoryId}}" method="POST" style="display:inline;">
-                                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
                                                     onclick="return confirm('Are you sure you want to delete this factory?');">
                                                     <i class="bi bi-trash"></i> Delete
                                                 </button>
