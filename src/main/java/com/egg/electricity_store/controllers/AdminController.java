@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.egg.electricity_store.entities.AppUser;
 import com.egg.electricity_store.exceptions.MyException;
 import com.egg.electricity_store.services.AppUserService;
 
@@ -74,8 +75,22 @@ public class AdminController {
             MultipartFile imageFile,
             RedirectAttributes redirAtt) {
         try {
-            appUserService.update(id, email, name, lastName, password, password2, imageFile);
-            redirAtt.addFlashAttribute("successMessage", "User was updated successfully.");
+            // Current user in DB
+            AppUser currUser = appUserService.getById(id);
+            // Udate user in DB
+            AppUser updUser = appUserService.update(id, email, name, lastName, password, password2, imageFile);
+            
+            // Update validation
+            boolean userBasicDataChanged = appUserService.userBasicDataChanged(currUser, updUser);
+            boolean userPasswordChanged = appUserService.userPasswordChanged(currUser, updUser);
+            boolean userImageChanged = appUserService.userImageChanged(currUser, updUser);
+
+            if (userBasicDataChanged || userPasswordChanged || userImageChanged) {
+                redirAtt.addFlashAttribute("successMessage", "User was updated successfully.");
+            } else {
+                redirAtt.addFlashAttribute("infoMessage", "No changes were detected in the user profile.");
+            }
+            
             return "redirect:../users";
         } catch (MyException e) {
             redirAtt.addFlashAttribute("errorMessage", "Error when updating user: " + e.getMessage());

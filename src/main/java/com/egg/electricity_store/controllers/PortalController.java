@@ -156,30 +156,13 @@ public class PortalController {
             // Udate user in DB
             AppUser updUser = appUserService.update(id, email, name, lastName, password, password2, imageFile);
             
-            boolean basicDataChanged = !currUser.equals(updUser); // Compares email, name, lastname
-            // Important: use !Objects.equals() for strings to avoid == errors
-            boolean passwordChanged = !Objects.equals(currUser.getPassword(), updUser.getPassword());
-
-            boolean imageChanged = false;
-            
-            // Current and updated image
-            Image currImage = currUser.getImage();
-            Image updImage = updUser.getImage();
-
-            // Null-checking to avoid NullPointerExceptions
-            if (currImage != null && updImage != null) {
-                // Compare image contents only if the IDs are the same (updated image kept the same ID)
-                if (Objects.equals(currImage.getImageId(), updImage.getImageId())) {
-                    imageChanged = !Arrays.equals(currImage.getImageContent(), updImage.getImageContent());
-                } else {
-                    imageChanged = true; // New image was assigned
-                }
-            } else if (currImage != null || updImage != null) {
-                imageChanged = true; // One image is null, the other is not
-            }
+            // Update validation
+            boolean userBasicDataChanged = appUserService.userBasicDataChanged(currUser, updUser);
+            boolean userPasswordChanged = appUserService.userPasswordChanged(currUser, updUser);
+            boolean userImageChanged = appUserService.userImageChanged(currUser, updUser);
 
             // Refresh SecurityContext only when needed (if user data has actually changed)            
-            if (basicDataChanged || passwordChanged || imageChanged) {
+            if (userBasicDataChanged || userPasswordChanged || userImageChanged) {
                 // Reload updated user for Spring Security
                 UserDetails updatedUser = appUserService.loadUserByUsername(updUser.getEmail());
                 // Refresh Spring Security context with new user (update session user)

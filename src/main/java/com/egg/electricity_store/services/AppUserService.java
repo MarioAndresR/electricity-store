@@ -1,6 +1,8 @@
 package com.egg.electricity_store.services;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -224,6 +226,39 @@ public class AppUserService implements UserDetailsService {
             appUser.setRole(Role.ADMIN);
         }
         // No need to call save(), Hibernate auto-manages change
+    }
+
+    // Compares email, name, lastname
+    public boolean userBasicDataChanged (AppUser currUser, AppUser updUser) throws MyException {
+        return !currUser.equals(updUser);
+    }
+
+    // Important: use !Objects.equals() for strings to avoid == errors
+    public boolean userPasswordChanged (AppUser currUser, AppUser updUser) throws MyException {
+        return !Objects.equals(currUser.getPassword(), updUser.getPassword());
+    }
+
+    // Compares the image contents
+    public boolean userImageChanged(AppUser currUser, AppUser updUser) throws MyException {
+        boolean imageChanged = false;
+
+        // Current and updated user image
+        Image currUserImage = currUser.getImage();
+        Image updUserImage = updUser.getImage();
+
+        // Null-checking to avoid NullPointerExceptions
+        if (currUserImage != null && updUserImage != null) {
+            // Compare image contents only if the IDs are the same (updated image kept the same ID)
+            if (Objects.equals(currUserImage.getImageId(), updUserImage.getImageId())) {
+                imageChanged = !Arrays.equals(currUserImage.getImageContent(), updUserImage.getImageContent());
+            } else {
+                imageChanged = true; // New image was assigned
+            }
+        } else if (currUserImage != null || updUserImage != null) {
+            imageChanged = true; // One image is null, the other is not
+        }
+
+        return imageChanged;
     }
 
 
