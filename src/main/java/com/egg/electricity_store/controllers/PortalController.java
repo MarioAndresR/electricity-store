@@ -1,7 +1,5 @@
 package com.egg.electricity_store.controllers;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
