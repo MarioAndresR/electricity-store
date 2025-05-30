@@ -95,7 +95,7 @@ public class AdminController {
         } catch (MyException e) {
             redirAtt.addFlashAttribute("errorMessage", "Error when updating user: " + e.getMessage());
             // Redirect to the GET method to show the form with the error
-            return " redirect:../user-update/"+id;
+            return "redirect:../user-update/"+id;
         }
     }
 
