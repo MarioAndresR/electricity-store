@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.egg.electricity_store.entities.AppUser;
-import com.egg.electricity_store.entities.Image;
 import com.egg.electricity_store.exceptions.MyException;
 import com.egg.electricity_store.services.AppUserService;
 
