@@ -22,13 +22,15 @@
                             Catalog
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- Allow create item option only for ADMINs -->
-                            <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
-                                    th:href="@{/item/register}">Create new item</a></li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/item/list}">Show Items</a>
+                            </li>
                             <li>
                                 <hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" th:href="@{/item/list}">Show Items</a></li>
+                            <!-- Allow create item option only for ADMINs -->
+                            <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/item/register}">Create new item</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -39,13 +41,14 @@
                             Providers
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- Allow create item option only for ADMINs -->
-                            <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
-                                    th:href="@{/factory/register}">Create new factory</a></li>
+                            <li><a class="dropdown-item" th:href="@{/factory/list}">Show Providers</a>
+                            </li>
                             <li>
                                 <hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" th:href="@{/factory/list}">Show Providers</a></li>
+                            <!-- Allow create factory option only for ADMINs -->
+                            <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/factory/register}">Create new factory</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -56,17 +59,13 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/register}">
-                                    Create new user
-                                </a>
+                                <a class="dropdown-item" th:href="@{/admin/users}">Show Users</a>
                             </li>
                             <li>
                                 <hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/admin/users}">
-                                    Show Users
-                                </a>
+                                <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/register}">Create new user</a>
                             </li>
                         </ul>
                     </li>
